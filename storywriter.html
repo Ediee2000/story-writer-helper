@@ -1,0 +1,400 @@
+<html>
+
+<body>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .main-container {
+            display: flex;
+            margin: 20px;
+        }
+        .list-container ul {
+            text-align: left; /* Align list items to the left */
+        }
+
+        .left {
+            flex: 1;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            overflow-y: auto; /* Add this to enable vertical scrollbar */
+            max-height: 800px; /* Set a max height for the div */
+        }
+
+
+        .right {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-y: auto; /* Add this to enable vertical scrollbar */
+            max-height: 800px; /* Set a max height for the div */
+        }
+        .question {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .list-container {
+            padding-left: 0px; /* You can adjust the value to control the amount of space */
+        }
+        
+        .description {
+            font-style: italic;
+        }
+        label {
+            display: block;
+            margin-top: 5px;
+        }
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        #result {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 10px;
+        }
+    </style>             
+        <div class="main-container">
+            <div class="left">
+            <div class="question">Who is going to perform this task? </div>
+            <div class="description">This will help us to understand what type of knowledge is needed to perform this task.</div>
+                <label for="DERadio"><input type="radio" id="DERadio" name="WhoRadio" value="Data Engineer" > Data Engineer </label>
+                <label for="DSRadio"><input type="radio" id="DSRadio" name="WhoRadio" value="Data Scientist"> Data Scientist </label>
+                <label for="DEDSRadio"><input type="radio" id="DEDSRadio" name="WhoRadio" value="Data Engineer/Scientist"> Data Engineer/Scientist </label>
+                <label for="PORadio"><input type="radio" id="PORadio" name="WhoRadio" value="P.O"> P.O </label>
+                <label for="USERRadio"><input type="radio" id="USERRadio" name="WhoRadio" value="User"> User </label>
+
+            <div class="question">What needs to be done? </div>
+            <div class="description">In your own words and from a macro perspective, please describe what you believe needs to be done to achieve your desired outcome.</div>
+            <textarea id="wantDone" cols="40" rows="5"></textarea>
+            
+            <div class="question">What will be achieve/delivery?</div>
+            <div class="description">When I perform these tasks, what features or problems do I want to deliver or resolve?</div>
+            <textarea id="achviment" cols="40" rows="5"></textarea>
+            
+            
+            <div class="question">Describe the tasks much descriptive you can </div>
+            <div class="description">Example: You are going to count each product a person buys in an order (Order Table), aggregate it by customer, year, and age (Customer Table), and create a new table called 'OrderPerCustomerYearly.'</div>
+            <textarea id="description" cols="40" rows="5"></textarea>
+            
+            <div class="question">Do we have any Dependecies related to data?</div>
+            <div class="description">In some way, do we need a new table, new columns, ingest data or something that we need to know where data is?</div>
+            
+            <div>
+            <label for="NoneRadio"><input type="radio" id="NoneRadio" name="showArea" value="None" style="display: none;" checked="1">
+
+            <label for="yesRadio"><input type="radio" id="yesRadio" name="showArea" value="yes">
+            Yes, and all data is already available to the team</label>
+            <label for="YesbutRadio"><input type="radio" id="YesbutRadio" name="showArea" value="yes/but">
+            Yes, but we don´t have all data available</label>
+            <label for="MaybeRadio"><input type="radio" id="MaybeRadio" name="showArea" value="no">
+            Maybe, we don´t know</label>
+            <label for="noRadio"> <input type="radio" id="noRadio" name="showArea" value="no">
+            No</label>
+            </div>
+            
+            <div id="newArea" style="display: none;">
+
+            <div class="question">Add here all information about tables, columns or info relative to data dependency</div>
+            <div class="description">Example: <br>
+            Database 1 - Table X - Columns: A, B, C <br>
+            Database 1 - Table X - Columns: Need to confirm <br>
+            Database 2 - Table Y - Will be ready after ticker XPT10 (link)</div>
+            <span class="addTextarea">➕</span>
+            <div class="array">
+            <textarea class="datassumption" cols="35" rows="1"></textarea>
+            </div>
+            </div>
+            
+            <div class="question">Do we have any Dependecies? </div>
+            <div class="description">Please assign each text to a separate dependency like process, clarification or date.</div>
+            <span class="addTextarea">➕</span>
+            <div class="array">
+            <textarea class="dependencies" cols="35" rows="1"></textarea>
+            </div> 
+            
+            <div class="question"> Documents / Repo / Links / Files</div>
+            <div class="description">Please assign each text to a separate document and provide a brief description of how we can use it.</div>
+            <span class="addTextarea">➕</span>
+            <div class="array">
+            <textarea class="assumptions" cols="35" rows="1"></textarea>
+            </div>
+            
+            <div class="question">Have filters we need to be aware?</div>
+            <div class="description">Example: Ignore Customer who did not have more than 1 order.<br>Ignore model X<br>Don´t modify file xpt</div>
+            <span class="addTextarea">➕</span>
+            <div class="array">
+            <textarea class="assumptions" cols="35" rows="1"></textarea>
+            </div>
+            
+            <div class="question">Do you see any risks?</div>
+            <div class="description">Example:<br>We didn't have enough data to do it. <br>Time consuming tasks</div>
+            <span class="addTextarea">➕</span>
+            <div class="array">
+            <textarea class="risks" cols="35" rows="1"></textarea>
+            </div>
+            
+            <div class="question">[ACCEPTANCE CRITERIA] Do you have in mind the result?</div>
+            <div class="description">Example:<br>There is a table in Database 2 with columns for CustomerID, Age, Year, and Count_products.<br>A deployment of all new features X, Y, and Z in Environment 1.</div>
+            <span class="addTextarea">➕</span>
+            <div class="array">
+            <textarea class="acceptance" cols="35" rows="1"></textarea>
+            </div>
+            
+            <div class="question">[ACCEPTANCE CRITERIA] How can I say this task is complete</div>
+            <div class="description">By steps how i can check if everything is done?<br>
+            Example:<br>
+            The table XPTO is visible in DataBase1, and all members of TEAM A can query it.<br>
+            The CiCd from GitLab was successful<br>
+            The model is deployed on the development environment (dev), and inference tests on the endpoint are returning results.
+            </div>
+            <span class="addTextarea">➕</span>
+            <div class="array">
+            <textarea class="acceptance" cols="35" rows="1"></textarea>
+            </div>
+            
+            </div>
+            <div class="right" id="rightDiv">
+            <div id="result"></div>
+				<button id="copyButton">Copy</button>             
+			</div>
+            </div>
+            
+            <script>
+            
+  
+            const optionsWho = document.getElementsByName('WhoRadio');
+            optionsWho.forEach(function (radio) {
+                radio.addEventListener("change", updateAll);
+            });
+
+            const wantTextare = document.getElementById("wantDone");
+            const achvimentTextarea = document.getElementById("achviment");
+            const descriptionTextarea = document.getElementById("description");
+            updateAll()
+            wantTextare.addEventListener("input", updateAll);
+            achvimentTextarea.addEventListener("input", updateAll);
+            descriptionTextarea.addEventListener("input", updateAll);
+            
+            
+            function addListenerToTextAreas()
+            {
+                var textAreas = document.querySelectorAll('.datassumption');
+                textAreas.forEach(function (textarea) {
+                    textarea.addEventListener('input', updateAll);
+                });
+
+                textAreas = document.querySelectorAll('.acceptance');
+                textAreas.forEach(function (textarea) {
+                    textarea.addEventListener('input', updateAll);
+                });
+
+                textAreas = document.querySelectorAll('.dependencies');
+                textAreas.forEach(function (textarea) {
+                    textarea.addEventListener('input', updateAll);
+                });
+
+                textAreas = document.querySelectorAll('.risks');
+                textAreas.forEach(function (textarea) {
+                    textarea.addEventListener('input', updateAll);
+                });
+
+                textAreas = document.querySelectorAll('.assumptions');
+                textAreas.forEach(function (textarea) {
+                    textarea.addEventListener('input', updateAll);
+                });
+            }
+            
+            addListenerToTextAreas();
+            
+            
+            function getWho() {
+                var optionsWho = document.getElementsByName('WhoRadio');
+                var selected = ""
+                optionsWho.forEach(function (radio) {
+                    if (radio.checked) {
+                        selected = radio.value
+                    }
+                });
+                return selected
+            }
+            
+            function updateAll(){
+                const resultDiv = document.getElementById("result");
+                const wantTextare = document.getElementById("wantDone");
+                const achvimentTextarea = document.getElementById("achviment");
+                const descriptionTextarea = document.getElementById("description");
+                var datassumptions = document.querySelectorAll('.datassumption');
+                var dependencies = document.querySelectorAll('.dependencies');
+                var assumptions = document.querySelectorAll('.assumptions');
+                var acceptance = document.querySelectorAll('.acceptance');
+                var risks = document.querySelectorAll('.risks');
+                
+                var textDiv = "<b>As a </b>{Who}<br><b>I want to </b>{want}<b> <br>So that </b> {achviment}";
+                textDiv = textDiv.replace("{Who}", getWho());
+                textDiv = textDiv.replace("{want}", wantTextare.value);
+                textDiv = textDiv.replace("{achviment}", achvimentTextarea.value);
+                resultDiv.innerHTML = textDiv;
+                
+                resultDiv.innerHTML += '<br><hr style="width:100%;text-align:left;margin-left:0"><h3>Description</h3>' + descriptionTextarea.value
+                
+                resultDiv.innerHTML += '<h3>Assumptions </h3> <div class="list-container" id="list_assumptions">'
+
+                const yesRadio = document.getElementById("yesRadio");
+                const noRadio = document.getElementById("noRadio");
+                const yesbutRadio = document.getElementById("YesbutRadio");
+                const maybeRadio = document.getElementById("MaybeRadio");
+
+                var ulElement = document.createElement('ul');
+                var liElement = document.createElement('li');
+                var data_assumptions = 0
+                if (yesbutRadio.checked | yesRadio.checked)
+                {
+                    datassumptions.forEach(function (textarea) {
+                        if (textarea.value != "") {
+                            data_assumptions += 1
+                            liElement = document.createElement('li');
+                            liElement.textContent = textarea.value;
+                            ulElement.appendChild(liElement);
+                        }
+                    });
+                }
+                if ( maybeRadio.checked )
+                {
+                    liElement = document.createElement('li');
+                    liElement.textContent = "Data dependencies unknow";
+                    ulElement.appendChild(liElement);
+                }
+
+                dependencies.forEach(function (textarea) {
+                    if (textarea.value != "") {
+                    liElement = document.createElement('li');
+                    liElement.textContent = textarea.value;
+                    ulElement.appendChild(liElement);
+                    }
+                });
+                assumptions.forEach(function (textarea) {
+                    if (textarea.value != "") {
+                    liElement = document.createElement('li');
+                    liElement.textContent = textarea.value;
+                    ulElement.appendChild(liElement);
+                    }
+                });
+                document.getElementById("list_assumptions").appendChild(ulElement)
+
+                resultDiv.innerHTML += '</div><h3>Risks</h3> <div class="list-container" id="list_risks"></div>'
+
+                ulElement = document.createElement('ul');
+                liElement = document.createElement('li');
+                if ((yesbutRadio.checked | yesRadio.checked) & data_assumptions == 0)
+                {
+                    liElement = document.createElement('li');
+                    liElement.textContent = "Data dependencies missing";
+                    ulElement.appendChild(liElement);
+                }
+                risks.forEach(function (textarea) {
+                    if (textarea.value != "") {
+                    liElement = document.createElement('li');
+                    liElement.textContent = textarea.value;
+                    ulElement.appendChild(liElement);
+                    }
+                });
+
+                document.getElementById("list_risks").appendChild(ulElement)
+
+                resultDiv.innerHTML += '</div><h3>Acceptance Criteria</h3> <div class="list-container" id="list_acceptance"></div>'
+
+                ulElement = document.createElement('ul');
+                liElement = document.createElement('li');
+                acceptance.forEach(function (textarea) {
+                    if (textarea.value != "") {
+                    liElement = document.createElement('li');
+                    liElement.textContent = textarea.value;
+                    ulElement.appendChild(liElement);
+                    }
+                });
+                document.getElementById("list_acceptance").appendChild(ulElement)
+            }
+            
+            const addTextareaButtons = document.querySelectorAll('.addTextarea');
+            
+            // Add an event listener to each of them
+            addTextareaButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                // Get the parent element of the clicked button
+                const arrayDiv = button.nextElementSibling;
+                
+                // Create a new textarea element
+                const newTextarea = document.createElement("textarea");
+                newTextarea.setAttribute("cols", "35");
+                newTextarea.setAttribute("rows", "1");
+                newTextarea.className = arrayDiv.children[0].className
+                
+                // Append the new textarea to the parent div
+                arrayDiv.appendChild(newTextarea);
+                addListenerToTextAreas();
+            });
+            });
+            
+            const yesRadio = document.getElementById("yesRadio");
+            const noRadio = document.getElementById("noRadio");
+            const yesbutRadio = document.getElementById("YesbutRadio");
+            const maybeRadio = document.getElementById("MaybeRadio");
+            const newArea = document.getElementById("newArea");
+            
+            
+            function showDataSection(action, div_q)
+            {
+                if (action == "show"){
+                    div_q.style.display = "block";
+                } else {
+                    div_q.style.display = "none";
+                }
+                updateAll()
+            }
+            
+            yesRadio.addEventListener("change", () => showDataSection("show", newArea));
+            yesbutRadio.addEventListener("change", () => showDataSection("show", newArea));
+            maybeRadio.addEventListener("change", () => showDataSection("hide", newArea));
+            noRadio.addEventListener("change", () => showDataSection("hide", newArea));                                      
+
+
+		function copyTextWithFormat() {
+                var rightDiv = document.getElementById('rightDiv'); // Get the "right" div
+                var range = document.createRange(); // Create a range object
+                range.selectNode(rightDiv); // Select the content of the "right" div
+
+                var selection = window.getSelection(); // Get the selection object
+                selection.removeAllRanges(); // Remove any previous selections
+                selection.addRange(range); // Add the new range to the selection
+
+                // Copy the selected content (including formatting) to the clipboard
+                document.execCommand('copy');
+
+                // Deselect the content (optional)
+                selection.removeAllRanges();
+
+                // Provide feedback to the user (optional)
+                alert('Text with format copied to clipboard');
+            }
+
+            // Add a click event listener to the "Copy Text with Format" button
+            var copyButton = document.getElementById('copyButton');
+            copyButton.addEventListener('click', copyTextWithFormat);
+             </script> 
+
+</body>
+
+
+</html>
